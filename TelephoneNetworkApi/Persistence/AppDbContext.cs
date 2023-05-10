@@ -29,7 +29,7 @@ namespace TelephoneNetworkApi.Persistence
             builder.Entity<Subscriber>().HasData
             (
                 new Subscriber { Id = 100, SecondName = "Пупкин", Name = "Василий", Surname = "Петрович", PhoneNumber = "23-56-78" },
-                new Subscriber { Id = 101, SecondName = "Иванов", Name = "Иван", Surname = "Иванович", PhoneNumber = "73-56-78" }
+                new Subscriber { Id = 101, SecondName = "Иванов", Name = "Иван", Surname = "Иванович", PhoneNumber = "13-56-78" }
             );
         }
     }

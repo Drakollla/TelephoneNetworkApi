@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using TelephoneNetworkApi;
 using TelephoneNetworkApi.Persistence;
 using TelephoneNetworkApi.Persistence.Repositories;
+using TelephoneNetworkApi.Repositories;
 using TelephoneNetworkApi.Repozitories;
 using TelephoneNetworkApi.Services;
 
@@ -14,8 +15,11 @@ builder.Services.AddDbContext<AppDbContext>(options => {
 
 builder.Services.AddScoped<ISubscriberRepositiry, SubscriberRepository>();
 builder.Services.AddScoped<ISubscriberService, SubScriberService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-//builder.Services.AddAutoMapper();
+
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
 
 
 // Add services to the container.

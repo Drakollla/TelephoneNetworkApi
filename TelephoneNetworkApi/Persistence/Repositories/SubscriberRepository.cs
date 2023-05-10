@@ -15,5 +15,10 @@ namespace TelephoneNetworkApi.Persistence.Repositories
         {
             return await _context.Subscribers.ToListAsync();
         }
+
+        public async Task AddAsync(Subscriber subscriber)
+        {
+            await _context.Subscribers.AddAsync(subscriber);
+        }
     }
 }
