@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32602.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelephoneNetworkApi", "TelephoneNetworkApi\TelephoneNetworkApi.csproj", "{330C38EF-394D-4C80-BF82-B1ED5AB57FCA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{330C38EF-394D-4C80-BF82-B1ED5AB57FCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{330C38EF-394D-4C80-BF82-B1ED5AB57FCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{330C38EF-394D-4C80-BF82-B1ED5AB57FCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{330C38EF-394D-4C80-BF82-B1ED5AB57FCA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {381A6AFE-0F17-4F20-87B7-B72FA9CB9EF1}
+	EndGlobalSection
+EndGlobal
