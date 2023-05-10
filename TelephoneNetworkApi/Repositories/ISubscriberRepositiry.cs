@@ -1,4 +1,4 @@
-﻿using restAPI.Models;
+﻿using TelephoneNetworkApi.Models;
 
 namespace TelephoneNetworkApi.Repozitories
 {
@@ -6,5 +6,8 @@ namespace TelephoneNetworkApi.Repozitories
     {
         Task<IEnumerable<Subscriber>> ListAsync();
         Task AddAsync(Subscriber subscriber);
+        Task<Subscriber> FindByIdAsync(int id);
+        void Update(Subscriber subscriber);
+        void Remove(Subscriber subscriber);
     }
 }

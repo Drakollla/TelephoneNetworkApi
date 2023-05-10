@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using restAPI.Models;
+using TelephoneNetworkApi.Models;
 
 namespace TelephoneNetworkApi.Persistence
 {

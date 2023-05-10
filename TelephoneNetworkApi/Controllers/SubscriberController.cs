@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using restAPI.Models;
 using TelephoneNetworkApi.Extensions;
+using TelephoneNetworkApi.Models;
 using TelephoneNetworkApi.Resourse;
 using TelephoneNetworkApi.Services;
 
@@ -44,6 +44,34 @@ namespace TelephoneNetworkApi.Controllers
 
             var categoryResource = _mapper.Map<Subscriber, SubscriberResource>(result.Subscriber);
             return Ok(categoryResource);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutAsync(int id, [FromBody] SaveSubscriberResource resource)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.GetErrorMessages());
+
+            var subscriber = _mapper.Map<SaveSubscriberResource, Subscriber>(resource);
+            var result = await _subscriberService.UpdateAsync(id, subscriber);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            var categoryResource = _mapper.Map<Subscriber, SubscriberResource>(result.Subscriber);
+            return Ok(categoryResource);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var result = await _subscriberService.DeleteAsync(id);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            var subscriberResource = _mapper.Map<Subscriber, SubscriberResource>(result.Subscriber);
+            return Ok(subscriberResource);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace restAPI.Models
+﻿namespace TelephoneNetworkApi.Models
 {
     /// <summary>
     /// Абоненты

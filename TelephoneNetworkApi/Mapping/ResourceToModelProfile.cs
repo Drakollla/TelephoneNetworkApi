@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using restAPI.Models;
+using TelephoneNetworkApi.Models;
 using TelephoneNetworkApi.Resourse;
 
 namespace TelephoneNetworkApi.Mapping

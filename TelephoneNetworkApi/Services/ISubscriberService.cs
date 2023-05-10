@@ -1,4 +1,4 @@
-﻿using restAPI.Models;
+﻿using TelephoneNetworkApi.Models;
 using TelephoneNetworkApi.Services.Communication;
 
 namespace TelephoneNetworkApi.Services
@@ -6,6 +6,8 @@ namespace TelephoneNetworkApi.Services
     public interface ISubscriberService
     {
         Task<IEnumerable<Subscriber>> ListAsync();
-        Task<SaveSubscriberResponse> SaveAsync(Subscriber subscriber);
+        Task<SubscriberResponse> SaveAsync(Subscriber subscriber);
+        Task<SubscriberResponse> UpdateAsync(int id, Subscriber subscriber);
+        Task<SubscriberResponse> DeleteAsync(int id);
     }
 }

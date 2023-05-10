@@ -1,4 +1,4 @@
-﻿using restAPI.Models;
+﻿using TelephoneNetworkApi.Models;
 using TelephoneNetworkApi.Repositories;
 using TelephoneNetworkApi.Repozitories;
 using TelephoneNetworkApi.Services;
@@ -8,32 +8,79 @@ namespace TelephoneNetworkApi
 {
     public class SubScriberService : ISubscriberService
     {
-        private readonly ISubscriberRepositiry _subscriberRepositiry;
+        private readonly ISubscriberRepositiry _subscriberRepository;
         private readonly IUnitOfWork _unitOfWork;
 
         public SubScriberService(ISubscriberRepositiry subscriberRepositiry, IUnitOfWork unitOfWork)
         {
-            _subscriberRepositiry = subscriberRepositiry;
+            _subscriberRepository = subscriberRepositiry;
             _unitOfWork = unitOfWork;
         }
 
         public Task<IEnumerable<Subscriber>> ListAsync()
         {
-            return _subscriberRepositiry.ListAsync();
+            return _subscriberRepository.ListAsync();
         }
 
-        public async Task<SaveSubscriberResponse> SaveAsync(Subscriber subscriber)
+        public async Task<SubscriberResponse> SaveAsync(Subscriber subscriber)
         {
             try
             {
-                await _subscriberRepositiry.AddAsync(subscriber);
+                await _subscriberRepository.AddAsync(subscriber);
                 await _unitOfWork.CompleteAsync();
 
-                return new SaveSubscriberResponse(subscriber);
+                return new SubscriberResponse(subscriber);
             }
             catch (Exception ex)
             {
-                return new SaveSubscriberResponse($"An error occurred when saving the subscriber: {ex.Message}");
+                return new SubscriberResponse($"An error occurred when saving the subscriber: {ex.Message}");
+            }
+        }
+
+        public async Task<SubscriberResponse> UpdateAsync(int id, Subscriber subscriber)
+        {
+            var existingSubscriber = await _subscriberRepository.FindByIdAsync(id);
+
+            if (existingSubscriber == null)
+                return new SubscriberResponse("Subscriber not found.");
+
+            existingSubscriber.SecondName = subscriber.SecondName;    
+            existingSubscriber.Name = subscriber.Name;
+            existingSubscriber.Surname = subscriber.Surname;
+            existingSubscriber.PhoneNumber = subscriber.PhoneNumber;
+            existingSubscriber.IsIntercityOpen = subscriber.IsIntercityOpen;
+            existingSubscriber.HasBenefit = subscriber.HasBenefit;
+
+            try
+            {
+                _subscriberRepository.Update(existingSubscriber);
+                await _unitOfWork.CompleteAsync();
+
+                return new SubscriberResponse(existingSubscriber);
+            }
+            catch (Exception ex)
+            {
+                return new SubscriberResponse($"An error occurred when updating the subscriber: {ex.Message}");
+            }
+        }
+        
+        public async Task<SubscriberResponse> DeleteAsync(int id)
+        {
+            var existingCategory = await _subscriberRepository.FindByIdAsync(id);
+
+            if (existingCategory == null)
+                return new SubscriberResponse("Category not found.");
+
+            try
+            {
+                _subscriberRepository.Remove(existingCategory);
+                await _unitOfWork.CompleteAsync();
+
+                return new SubscriberResponse(existingCategory);
+            }
+            catch (Exception ex)
+            {
+                return new SubscriberResponse($"An error occurred when deleting the subscriber: {ex.Message}");
             }
         }
     }

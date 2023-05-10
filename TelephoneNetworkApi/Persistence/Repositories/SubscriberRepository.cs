@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using restAPI.Models;
+using TelephoneNetworkApi.Models;
 using TelephoneNetworkApi.Repozitories;
 
 namespace TelephoneNetworkApi.Persistence.Repositories
@@ -19,6 +19,21 @@ namespace TelephoneNetworkApi.Persistence.Repositories
         public async Task AddAsync(Subscriber subscriber)
         {
             await _context.Subscribers.AddAsync(subscriber);
+        }
+        
+        public async Task<Subscriber> FindByIdAsync(int id)
+        {
+            return await _context.Subscribers.FindAsync(id);
+        }
+
+        public void Update(Subscriber subscriber)
+        {
+            _context.Subscribers.Update(subscriber);
+        }
+
+        public void Remove(Subscriber subscriber)
+        {
+            _context.Subscribers.Remove(subscriber);
         }
     }
 }
