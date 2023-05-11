@@ -1,4 +1,4 @@
-﻿namespace TelephoneNetworkApi.Models
+﻿namespace TelephoneNetworkApi.Domain.Models
 {
     /// <summary>
     /// АТС
@@ -7,8 +7,8 @@
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Address { get; set; }
         public string Town { get; set; }
         public int CountSubscriber { get; set; }
+        public ICollection<AtsAndSubscriber> AtsAndSubscribers { get; set; }
     }
 }

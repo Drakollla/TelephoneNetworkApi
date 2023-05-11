@@ -1,4 +1,4 @@
-﻿namespace TelephoneNetworkApi.Models
+﻿namespace TelephoneNetworkApi.Domain.Models
 {
     /// <summary>
     /// Абоненты
@@ -11,6 +11,9 @@
         public string Surname { get; set; }
         public string PhoneNumber { get; set; }
         public bool IsIntercityOpen { get; set; }
-        public bool HasBenefit { get; set; }
+
+        public ICollection<RegistrySubscriptionPayment> RegistrySubscriptionPayments { get; set; }
+
+        public ICollection<AtsAndSubscriber> AtsAndSubscribers { get; set; }
     }
 }

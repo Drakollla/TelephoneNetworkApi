@@ -1,4 +1,4 @@
-﻿using TelephoneNetworkApi.Repositories;
+﻿using TelephoneNetworkApi.Domain.Repositories;
 
 namespace TelephoneNetworkApi.Persistence.Repositories
 {

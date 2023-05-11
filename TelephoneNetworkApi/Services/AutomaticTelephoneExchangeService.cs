@@ -1,0 +1,85 @@
+﻿using TelephoneNetworkApi.Domain.Models;
+using TelephoneNetworkApi.Domain.Repositories;
+using TelephoneNetworkApi.Domain.Services;
+using TelephoneNetworkApi.Domain.Services.Communication;
+
+namespace TelephoneNetworkApi.Services
+{
+    public class AutomaticTelephoneExchangeService : IAutomaticTelephoneExchangeService
+    {
+        private readonly IAutomaticTelephoneExchangeRepository _automaticTelephoneExchangeRepository;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public AutomaticTelephoneExchangeService(IAutomaticTelephoneExchangeRepository automaticTelephoneExchangeRepository, IUnitOfWork unitOfWork)
+        {
+            _automaticTelephoneExchangeRepository = automaticTelephoneExchangeRepository;
+            _unitOfWork = unitOfWork;
+        }
+
+        public async Task<IEnumerable<AutomaticTelephoneExchange>> ListAsync()
+        {
+            return await _automaticTelephoneExchangeRepository.ListAsync();
+        }
+
+        public async Task<AutomaticTelephoneExchangeResponse> SaveAsync(AutomaticTelephoneExchange automaticTelephoneExchange)
+        {
+            try
+            {
+                await _automaticTelephoneExchangeRepository.AddAsync(automaticTelephoneExchange);
+                await _unitOfWork.CompleteAsync();
+
+
+                return new AutomaticTelephoneExchangeResponse(automaticTelephoneExchange);
+            }
+            catch (Exception ex)
+            {
+                // Do some logging stuff
+                return new AutomaticTelephoneExchangeResponse($"An error occurred when saving the category: {ex.Message}");
+            }
+        }
+
+        public async Task<AutomaticTelephoneExchangeResponse> UpdateAsync(int id, AutomaticTelephoneExchange automaticTelephoneExchange)
+        {
+            var existingATS = await _automaticTelephoneExchangeRepository.FindByIdAsync(id);
+
+            if (existingATS == null)
+                return new AutomaticTelephoneExchangeResponse("ATS not found.");
+
+            existingATS.CountSubscriber = automaticTelephoneExchange.CountSubscriber;
+
+            try
+            {
+                _automaticTelephoneExchangeRepository.Update(existingATS);
+                await _unitOfWork.CompleteAsync();
+
+                return new AutomaticTelephoneExchangeResponse(existingATS);
+            }
+            catch (Exception ex)
+            {
+                // Do some logging stuff
+                return new AutomaticTelephoneExchangeResponse($"An error occurred when updating the ATS: {ex.Message}");
+            }
+        }
+
+        public async Task<AutomaticTelephoneExchangeResponse> DeleteAsync(int id)
+        {
+            var existingCategory = await _automaticTelephoneExchangeRepository.FindByIdAsync(id);
+
+            if (existingCategory == null)
+                return new AutomaticTelephoneExchangeResponse("Ats not found.");
+
+            try
+            {
+                _automaticTelephoneExchangeRepository.Remove(existingCategory);
+                await _unitOfWork.CompleteAsync();
+
+                return new AutomaticTelephoneExchangeResponse(existingCategory);
+            }
+            catch (Exception ex)
+            {
+                // Do some logging stuff
+                return new AutomaticTelephoneExchangeResponse($"An error occurred when deleting the ats: {ex.Message}");
+            }
+        }
+    }
+}

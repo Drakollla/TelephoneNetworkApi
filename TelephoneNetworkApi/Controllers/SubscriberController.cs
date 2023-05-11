@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using TelephoneNetworkApi.Domain.Models;
 using TelephoneNetworkApi.Extensions;
-using TelephoneNetworkApi.Models;
 using TelephoneNetworkApi.Resourse;
 using TelephoneNetworkApi.Services;
 

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using TelephoneNetworkApi.Models;
+using TelephoneNetworkApi.Domain.Models;
 using TelephoneNetworkApi.Resourse;
 
 namespace TelephoneNetworkApi.Mapping
@@ -9,6 +9,8 @@ namespace TelephoneNetworkApi.Mapping
         public ModelToResourceProfile()
         {
             CreateMap<Subscriber, SubscriberResource>();
+            CreateMap<AutomaticTelephoneExchange, AutomaticTelephoneExchangeResourse>();
+            CreateMap<RegistrySubscriptionPayment, RegistrySubscriptionPaymentResourse>();
         }
     }
 }

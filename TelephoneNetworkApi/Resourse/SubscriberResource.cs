@@ -8,6 +8,5 @@
         public string Surname { get; set; }
         public string PhoneNumber { get; set; }
         public bool IsIntercityOpen { get; set; }
-        public bool HasBenefit { get; set; }
     }
 }

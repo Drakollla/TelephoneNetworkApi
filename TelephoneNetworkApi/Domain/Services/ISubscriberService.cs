@@ -1,4 +1,4 @@
-﻿using TelephoneNetworkApi.Models;
+﻿using TelephoneNetworkApi.Domain.Models;
 using TelephoneNetworkApi.Services.Communication;
 
 namespace TelephoneNetworkApi.Services

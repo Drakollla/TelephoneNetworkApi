@@ -1,8 +1,8 @@
-﻿using TelephoneNetworkApi.Models;
+﻿using TelephoneNetworkApi.Domain.Models;
 
-namespace TelephoneNetworkApi.Repozitories
+namespace TelephoneNetworkApi.Domain.Repositories
 {
-    public interface ISubscriberRepositiry
+    public interface ISubscriberRepository
     {
         Task<IEnumerable<Subscriber>> ListAsync();
         Task AddAsync(Subscriber subscriber);

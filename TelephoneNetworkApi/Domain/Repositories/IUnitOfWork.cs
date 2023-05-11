@@ -1,4 +1,4 @@
-﻿namespace TelephoneNetworkApi.Repositories
+﻿namespace TelephoneNetworkApi.Domain.Repositories
 {
     public interface IUnitOfWork
     {

@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TelephoneNetworkApi.Models;
-using TelephoneNetworkApi.Repozitories;
+using TelephoneNetworkApi.Domain.Models;
+using TelephoneNetworkApi.Domain.Repositories;
 
 namespace TelephoneNetworkApi.Persistence.Repositories
 {
-    public class SubscriberRepository : BaseRepository, ISubscriberRepositiry
+    public class SubscriberRepository : BaseRepository, ISubscriberRepository
     {
         public SubscriberRepository(AppDbContext context) : base(context)
         {
@@ -20,7 +20,7 @@ namespace TelephoneNetworkApi.Persistence.Repositories
         {
             await _context.Subscribers.AddAsync(subscriber);
         }
-        
+
         public async Task<Subscriber> FindByIdAsync(int id)
         {
             return await _context.Subscribers.FindAsync(id);

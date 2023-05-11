@@ -1,17 +1,15 @@
-﻿using TelephoneNetworkApi.Models;
-using TelephoneNetworkApi.Repositories;
-using TelephoneNetworkApi.Repozitories;
-using TelephoneNetworkApi.Services;
+﻿using TelephoneNetworkApi.Domain.Models;
+using TelephoneNetworkApi.Domain.Repositories;
 using TelephoneNetworkApi.Services.Communication;
 
-namespace TelephoneNetworkApi
+namespace TelephoneNetworkApi.Services
 {
     public class SubScriberService : ISubscriberService
     {
-        private readonly ISubscriberRepositiry _subscriberRepository;
+        private readonly ISubscriberRepository _subscriberRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public SubScriberService(ISubscriberRepositiry subscriberRepositiry, IUnitOfWork unitOfWork)
+        public SubScriberService(ISubscriberRepository subscriberRepositiry, IUnitOfWork unitOfWork)
         {
             _subscriberRepository = subscriberRepositiry;
             _unitOfWork = unitOfWork;
@@ -44,12 +42,7 @@ namespace TelephoneNetworkApi
             if (existingSubscriber == null)
                 return new SubscriberResponse("Subscriber not found.");
 
-            existingSubscriber.SecondName = subscriber.SecondName;    
-            existingSubscriber.Name = subscriber.Name;
-            existingSubscriber.Surname = subscriber.Surname;
             existingSubscriber.PhoneNumber = subscriber.PhoneNumber;
-            existingSubscriber.IsIntercityOpen = subscriber.IsIntercityOpen;
-            existingSubscriber.HasBenefit = subscriber.HasBenefit;
 
             try
             {
@@ -63,7 +56,7 @@ namespace TelephoneNetworkApi
                 return new SubscriberResponse($"An error occurred when updating the subscriber: {ex.Message}");
             }
         }
-        
+
         public async Task<SubscriberResponse> DeleteAsync(int id)
         {
             var existingCategory = await _subscriberRepository.FindByIdAsync(id);
