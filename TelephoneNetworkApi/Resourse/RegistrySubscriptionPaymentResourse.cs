@@ -8,6 +8,6 @@
         public byte TownshipMinuteCount { get; set; }
         public byte IntecityMinuteCount { get; set; }
         public decimal Price { get; set; }
-        public SubscriberResource Subscriber { get; set; }
+        public SubscriberResourse Subscriber { get; set; }
     }
 }

@@ -21,10 +21,10 @@ namespace TelephoneNetworkApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<SubscriberResource>> GetAllAsync()
+        public async Task<IEnumerable<SubscriberResourse>> GetAllAsync()
         {
             var subscribers = await _subscriberService.ListAsync();
-            var resources = _mapper.Map<IEnumerable<Subscriber>, IEnumerable<SubscriberResource>>(subscribers);
+            var resources = _mapper.Map<IEnumerable<Subscriber>, IEnumerable<SubscriberResourse>>(subscribers);
 
             return resources;
         }
@@ -32,17 +32,26 @@ namespace TelephoneNetworkApi.Controllers
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveSubscriberResource resource)
         {
-
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
             var subscriber = _mapper.Map<SaveSubscriberResource, Subscriber>(resource);
+
+            foreach (var id in resource.AutomaticTelephoneExchangeIds)
+            {
+                subscriber.AtsSubscribers.Add(new AtsSubscriber()
+                {
+                    Subscriber = subscriber,
+                    AutomaticTelephoneExchangeId = id
+                });
+            }
+
             var result = await _subscriberService.SaveAsync(subscriber);
 
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var categoryResource = _mapper.Map<Subscriber, SubscriberResource>(result.Subscriber);
+            var categoryResource = _mapper.Map<Subscriber, SubscriberResourse>(result.Subscriber);
             return Ok(categoryResource);
         }
 
@@ -58,7 +67,7 @@ namespace TelephoneNetworkApi.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var categoryResource = _mapper.Map<Subscriber, SubscriberResource>(result.Subscriber);
+            var categoryResource = _mapper.Map<Subscriber, SubscriberResourse>(result.Subscriber);
             return Ok(categoryResource);
         }
 
@@ -70,7 +79,7 @@ namespace TelephoneNetworkApi.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var subscriberResource = _mapper.Map<Subscriber, SubscriberResource>(result.Subscriber);
+            var subscriberResource = _mapper.Map<Subscriber, SubscriberResourse>(result.Subscriber);
             return Ok(subscriberResource);
         }
     }

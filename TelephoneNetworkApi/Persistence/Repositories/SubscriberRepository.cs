@@ -6,14 +6,13 @@ namespace TelephoneNetworkApi.Persistence.Repositories
 {
     public class SubscriberRepository : BaseRepository, ISubscriberRepository
     {
-        public SubscriberRepository(AppDbContext context) : base(context)
-        {
-
-        }
+        public SubscriberRepository(AppDbContext context) : base(context) { }
 
         public async Task<IEnumerable<Subscriber>> ListAsync()
         {
-            return await _context.Subscribers.ToListAsync();
+            return await _context.Subscribers.Include(x => x.AtsSubscribers)
+                .ThenInclude(e => e.AutomaticTelephoneExchange)
+                .ToListAsync();
         }
 
         public async Task AddAsync(Subscriber subscriber)

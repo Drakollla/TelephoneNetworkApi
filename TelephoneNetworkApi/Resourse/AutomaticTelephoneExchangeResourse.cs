@@ -8,6 +8,6 @@ namespace TelephoneNetworkApi.Resourse
         public string Name { get; set; }
         public string Town { get; set; }
         public int CountSubscriber { get; set; }
-        public ICollection<AtsAndSubscriber> AtsAndSubscribers { get; set; }
+        public ICollection<AtsSubscriber> AtsAndSubscribers { get; set; }
     }
 }

@@ -6,9 +6,8 @@ namespace TelephoneNetworkApi.Persistence.Repositories
 {
     public class RegistrySubscriptionPaymentRepository : BaseRepository, IRegistrySubscriptionPaymentRepository
     {
-        public RegistrySubscriptionPaymentRepository(AppDbContext context) : base(context)
-        {
-        }
+        public RegistrySubscriptionPaymentRepository(AppDbContext context) 
+            : base(context) { }
 
         public async Task<IEnumerable<RegistrySubscriptionPayment>> ListAsync()
         {

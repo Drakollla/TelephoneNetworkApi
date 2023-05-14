@@ -8,7 +8,7 @@ namespace TelephoneNetworkApi.Mapping
     {
         public ModelToResourceProfile()
         {
-            CreateMap<Subscriber, SubscriberResource>();
+            CreateMap<Subscriber, SubscriberResourse>();
             CreateMap<AutomaticTelephoneExchange, AutomaticTelephoneExchangeResourse>();
             CreateMap<RegistrySubscriptionPayment, RegistrySubscriptionPaymentResourse>();
         }

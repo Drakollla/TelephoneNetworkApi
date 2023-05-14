@@ -9,6 +9,6 @@
         public string Name { get; set; }
         public string Town { get; set; }
         public int CountSubscriber { get; set; }
-        public ICollection<AtsAndSubscriber> AtsAndSubscribers { get; set; }
+        public ICollection<AtsSubscriber> AtsSubscribers { get; set; } = new List<AtsSubscriber>();
     }
 }

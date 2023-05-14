@@ -28,12 +28,10 @@ namespace TelephoneNetworkApi.Services
                 await _automaticTelephoneExchangeRepository.AddAsync(automaticTelephoneExchange);
                 await _unitOfWork.CompleteAsync();
 
-
                 return new AutomaticTelephoneExchangeResponse(automaticTelephoneExchange);
             }
             catch (Exception ex)
             {
-                // Do some logging stuff
                 return new AutomaticTelephoneExchangeResponse($"An error occurred when saving the category: {ex.Message}");
             }
         }
@@ -56,7 +54,6 @@ namespace TelephoneNetworkApi.Services
             }
             catch (Exception ex)
             {
-                // Do some logging stuff
                 return new AutomaticTelephoneExchangeResponse($"An error occurred when updating the ATS: {ex.Message}");
             }
         }
@@ -77,7 +74,6 @@ namespace TelephoneNetworkApi.Services
             }
             catch (Exception ex)
             {
-                // Do some logging stuff
                 return new AutomaticTelephoneExchangeResponse($"An error occurred when deleting the ats: {ex.Message}");
             }
         }

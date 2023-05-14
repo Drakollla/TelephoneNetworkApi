@@ -11,9 +11,7 @@
         public string Surname { get; set; }
         public string PhoneNumber { get; set; }
         public bool IsIntercityOpen { get; set; }
-
         public ICollection<RegistrySubscriptionPayment> RegistrySubscriptionPayments { get; set; }
-
-        public ICollection<AtsAndSubscriber> AtsAndSubscribers { get; set; }
+        public ICollection<AtsSubscriber> AtsSubscribers { get; set; } = new List<AtsSubscriber>();
     }
 }

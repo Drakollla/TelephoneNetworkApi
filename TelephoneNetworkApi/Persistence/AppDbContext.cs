@@ -12,9 +12,7 @@ namespace TelephoneNetworkApi.Persistence
         }
 
         public DbSet<Subscriber> Subscribers { get; set; }
-
         public DbSet<RegistrySubscriptionPayment> RegistrySubscriptionPayments { get; set; }
-
         public DbSet<AutomaticTelephoneExchange> AutomaticTelephoneExchanges { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -29,7 +27,11 @@ namespace TelephoneNetworkApi.Persistence
                 entity.Property(p => p.SecondName).IsRequired().HasMaxLength(30);
                 entity.Property(p => p.Name).IsRequired().HasMaxLength(30);
                 entity.Property(p => p.Surname).IsRequired().HasMaxLength(30);
+                entity.Property(p => p.PhoneNumber).IsRequired().HasMaxLength(15);
                 entity.Property(p => p.IsIntercityOpen).HasDefaultValue(false);
+                entity.HasMany(e => e.AtsSubscribers)
+                      .WithOne(s => s.Subscriber)
+                      .OnDelete(DeleteBehavior.SetNull); 
             });
 
             builder.Entity<RegistrySubscriptionPayment>(entity =>
@@ -46,34 +48,19 @@ namespace TelephoneNetworkApi.Persistence
                       .WithMany(s => s.RegistrySubscriptionPayments)
                       .HasForeignKey(e => e.SubscriberId)
                       .OnDelete(DeleteBehavior.Cascade);
-
             });
 
             builder.Entity<AutomaticTelephoneExchange>(entity =>
             {
-
                 entity.ToTable("AutomaticTelephoneExchange");
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).IsRequired().ValueGeneratedOnAdd();
                 entity.Property(p => p.Name).IsRequired().HasMaxLength(100);
                 entity.Property(p => p.Name).IsRequired().HasMaxLength(30);
                 entity.Property(e => e.CountSubscriber).IsRequired();
-
-            });
-
-            builder.Entity<AtsAndSubscriber>(entity =>
-            {
-                entity.ToTable("AtsAndSubscriber");
-                entity.HasKey(e => new { e.SubscriberId, e.AutomaticTelephoneExchangeId });
-
-                entity.HasOne(e => e.Subscriber)
-                      .WithMany(s => s.AtsAndSubscribers)
-                      .HasForeignKey(e => e.SubscriberId);
-
-                entity.HasOne(e => e.AutomaticTelephoneExchange)
-                      .WithMany(a => a.AtsAndSubscribers)
-                      .HasForeignKey(e => e.AutomaticTelephoneExchangeId);
-
+                entity.HasMany(e => e.AtsSubscribers)
+                      .WithOne(a => a.AutomaticTelephoneExchange)
+                      .OnDelete(DeleteBehavior.SetNull);
             });
 
             AddTestData(builder);
@@ -96,7 +83,11 @@ namespace TelephoneNetworkApi.Persistence
             builder.Entity<AutomaticTelephoneExchange>().HasData
             (
                 new AutomaticTelephoneExchange { Id = 78, Town = "Витебск", Name = "Телефонная сеть №15", CountSubscriber = 10000 }
+            );
 
+            builder.Entity<AtsSubscriber>().HasData
+            (
+                new AtsSubscriber { Id = 100, SubscriberId = 101, AutomaticTelephoneExchangeId = 78 }
             );
         }
     }

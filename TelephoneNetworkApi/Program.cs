@@ -8,8 +8,9 @@ using TelephoneNetworkApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<AppDbContext>(options => {
-    options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TelephoneNetworAppkDB;Trusted_Connection=True;");
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=TelephoneNetworDB;Trusted_Connection=True;");
 });
 
 builder.Services.AddScoped<ISubscriberRepository, SubscriberRepository>();
@@ -26,7 +27,11 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
