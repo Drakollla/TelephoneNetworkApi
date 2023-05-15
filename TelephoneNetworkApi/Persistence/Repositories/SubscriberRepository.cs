@@ -12,6 +12,7 @@ namespace TelephoneNetworkApi.Persistence.Repositories
         {
             return await _context.Subscribers.Include(x => x.AtsSubscribers)
                 .ThenInclude(e => e.AutomaticTelephoneExchange)
+                .Include(x => x.RegistrySubscriptionPayments)
                 .ToListAsync();
         }
 

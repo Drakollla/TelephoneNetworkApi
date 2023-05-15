@@ -54,6 +54,10 @@ namespace TelephoneNetworkApi.Services
             if (existingSubscriber == null)
                 return new RegistrySubscriptionPaymentResponse("Invalid category.");
 
+            existingPayment.Mounth = registrySubscriptionPayment.Mounth;
+            existingPayment.Year = registrySubscriptionPayment.Year;
+            existingPayment.TownshipMinuteCount = registrySubscriptionPayment.TownshipMinuteCount;
+            existingPayment.IntecityMinuteCount = registrySubscriptionPayment.IntecityMinuteCount;
             existingPayment.Price = registrySubscriptionPayment.Price;
 
             try

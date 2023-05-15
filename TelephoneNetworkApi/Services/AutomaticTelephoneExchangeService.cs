@@ -43,6 +43,8 @@ namespace TelephoneNetworkApi.Services
             if (existingATS == null)
                 return new AutomaticTelephoneExchangeResponse("ATS not found.");
 
+            existingATS.Name = automaticTelephoneExchange.Name;
+            existingATS.Town = automaticTelephoneExchange.Town;
             existingATS.CountSubscriber = automaticTelephoneExchange.CountSubscriber;
 
             try

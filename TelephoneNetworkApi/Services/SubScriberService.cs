@@ -42,7 +42,11 @@ namespace TelephoneNetworkApi.Services
             if (existingSubscriber == null)
                 return new SubscriberResponse("Subscriber not found.");
 
+            existingSubscriber.SecondName = subscriber.SecondName;
+            existingSubscriber.Name = subscriber.Name;
+            existingSubscriber.Surname = subscriber.Surname;
             existingSubscriber.PhoneNumber = subscriber.PhoneNumber;
+            existingSubscriber.IsIntercityOpen = subscriber.IsIntercityOpen;
 
             try
             {
