@@ -32,7 +32,7 @@ namespace TelephoneNetworkApi.Services
             }
             catch (Exception ex)
             {
-                return new AutomaticTelephoneExchangeResponse($"An error occurred when saving the category: {ex.Message}");
+                return new AutomaticTelephoneExchangeResponse($"An error occurred when saving the ATS: {ex.Message}");
             }
         }
 
@@ -62,17 +62,17 @@ namespace TelephoneNetworkApi.Services
 
         public async Task<AutomaticTelephoneExchangeResponse> DeleteAsync(int id)
         {
-            var existingCategory = await _automaticTelephoneExchangeRepository.FindByIdAsync(id);
+            var existingATS = await _automaticTelephoneExchangeRepository.FindByIdAsync(id);
 
-            if (existingCategory == null)
+            if (existingATS == null)
                 return new AutomaticTelephoneExchangeResponse("Ats not found.");
 
             try
             {
-                _automaticTelephoneExchangeRepository.Remove(existingCategory);
+                _automaticTelephoneExchangeRepository.Remove(existingATS);
                 await _unitOfWork.CompleteAsync();
 
-                return new AutomaticTelephoneExchangeResponse(existingCategory);
+                return new AutomaticTelephoneExchangeResponse(existingATS);
             }
             catch (Exception ex)
             {

@@ -63,17 +63,17 @@ namespace TelephoneNetworkApi.Services
 
         public async Task<SubscriberResponse> DeleteAsync(int id)
         {
-            var existingCategory = await _subscriberRepository.FindByIdAsync(id);
+            var existingSubscriber = await _subscriberRepository.FindByIdAsync(id);
 
-            if (existingCategory == null)
-                return new SubscriberResponse("Category not found.");
+            if (existingSubscriber == null)
+                return new SubscriberResponse("Subscriber not found.");
 
             try
             {
-                _subscriberRepository.Remove(existingCategory);
+                _subscriberRepository.Remove(existingSubscriber);
                 await _unitOfWork.CompleteAsync();
 
-                return new SubscriberResponse(existingCategory);
+                return new SubscriberResponse(existingSubscriber);
             }
             catch (Exception ex)
             {

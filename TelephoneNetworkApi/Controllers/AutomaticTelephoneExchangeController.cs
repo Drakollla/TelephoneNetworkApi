@@ -41,8 +41,8 @@ namespace TelephoneNetworkApi.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var categoryResource = _mapper.Map<AutomaticTelephoneExchange, AutomaticTelephoneExchangeResourse>(result.AutomaticTelephoneExchange);
-            return Ok(categoryResource);
+            var atsResource = _mapper.Map<AutomaticTelephoneExchange, AutomaticTelephoneExchangeResourse>(result.AutomaticTelephoneExchange);
+            return Ok(atsResource);
         }
 
         [HttpPut("{id}")]
@@ -51,14 +51,14 @@ namespace TelephoneNetworkApi.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
-            var category = _mapper.Map<SaveAutomaticTelephoneExchangeResourse, AutomaticTelephoneExchange>(resource);
-            var result = await _automaticTelephoneExchangeService.UpdateAsync(id, category);
+            var ats = _mapper.Map<SaveAutomaticTelephoneExchangeResourse, AutomaticTelephoneExchange>(resource);
+            var result = await _automaticTelephoneExchangeService.UpdateAsync(id, ats);
 
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var categoryResource = _mapper.Map<AutomaticTelephoneExchange, AutomaticTelephoneExchangeResourse>(result.AutomaticTelephoneExchange);
-            return Ok(categoryResource);
+            var atsResource = _mapper.Map<AutomaticTelephoneExchange, AutomaticTelephoneExchangeResourse>(result.AutomaticTelephoneExchange);
+            return Ok(atsResource);
         }
 
         [HttpDelete("{id}")]

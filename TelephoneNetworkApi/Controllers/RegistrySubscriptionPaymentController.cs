@@ -41,8 +41,8 @@ namespace TelephoneNetworkApi.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var categoryResource = _mapper.Map<RegistrySubscriptionPayment, RegistrySubscriptionPaymentResourse>(result.RegistrySubscriptionPayment);
-            return Ok(categoryResource);
+            var paymentResource = _mapper.Map<RegistrySubscriptionPayment, RegistrySubscriptionPaymentResourse>(result.RegistrySubscriptionPayment);
+            return Ok(paymentResource);
         }
 
         [HttpPut("{id}")]
@@ -51,14 +51,14 @@ namespace TelephoneNetworkApi.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
-            var category = _mapper.Map<SaveRegistrySubscriptionPaymentResourse, RegistrySubscriptionPayment>(resource);
-            var result = await _registrySubscriptionPaymentService.UpdateAsync(id, category);
+            var payment = _mapper.Map<SaveRegistrySubscriptionPaymentResourse, RegistrySubscriptionPayment>(resource);
+            var result = await _registrySubscriptionPaymentService.UpdateAsync(id, payment);
 
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var categoryResource = _mapper.Map<RegistrySubscriptionPayment, RegistrySubscriptionPaymentResourse>(result.RegistrySubscriptionPayment);
-            return Ok(categoryResource);
+            var paymentResource = _mapper.Map<RegistrySubscriptionPayment, RegistrySubscriptionPaymentResourse>(result.RegistrySubscriptionPayment);
+            return Ok(paymentResource);
         }
 
         [HttpDelete("{id}")]

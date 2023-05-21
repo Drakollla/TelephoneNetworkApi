@@ -52,7 +52,7 @@ namespace TelephoneNetworkApi.Services
 
             var existingSubscriber = await _subscriberRepository.FindByIdAsync(registrySubscriptionPayment.SubscriberId);
             if (existingSubscriber == null)
-                return new RegistrySubscriptionPaymentResponse("Invalid category.");
+                return new RegistrySubscriptionPaymentResponse("Invalid payment.");
 
             existingPayment.Mounth = registrySubscriptionPayment.Mounth;
             existingPayment.Year = registrySubscriptionPayment.Year;
@@ -76,17 +76,17 @@ namespace TelephoneNetworkApi.Services
 
         public async Task<RegistrySubscriptionPaymentResponse> DeleteAsync(int id)
         {
-            var existingCategory = await _registrySubscriptionPaymentRepository.FindByIdAsync(id);
+            var existingPayment = await _registrySubscriptionPaymentRepository.FindByIdAsync(id);
 
-            if (existingCategory == null)
+            if (existingPayment == null)
                 return new RegistrySubscriptionPaymentResponse("Payment not found.");
 
             try
             {
-                _registrySubscriptionPaymentRepository.Remove(existingCategory);
+                _registrySubscriptionPaymentRepository.Remove(existingPayment);
                 await _unitOfWork.CompleteAsync();
 
-                return new RegistrySubscriptionPaymentResponse(existingCategory);
+                return new RegistrySubscriptionPaymentResponse(existingPayment);
             }
             catch (Exception ex)
             {

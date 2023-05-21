@@ -51,8 +51,8 @@ namespace TelephoneNetworkApi.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var categoryResource = _mapper.Map<Subscriber, SubscriberResourse>(result.Subscriber);
-            return Ok(categoryResource);
+            var subscriberResource = _mapper.Map<Subscriber, SubscriberResourse>(result.Subscriber);
+            return Ok(subscriberResource);
         }
 
         [HttpPut("{id}")]
@@ -67,8 +67,8 @@ namespace TelephoneNetworkApi.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var categoryResource = _mapper.Map<Subscriber, SubscriberResourse>(result.Subscriber);
-            return Ok(categoryResource);
+            var subscriberResource = _mapper.Map<Subscriber, SubscriberResourse>(result.Subscriber);
+            return Ok(subscriberResource);
         }
 
         [HttpDelete("{id}")]
