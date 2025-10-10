@@ -17,7 +17,7 @@ API предоставляет интерфейс для управления о
 *   **Платформа**: .NET 6
 *   **Фреймворк**: ASP.NET Core Web API
 *   **ORM**: Entity Framework Core 6
-*   **База данных**: PostgreSQL (может быть легко заменена на MS SQL Server или другую СУБД, поддерживаемую EF Core)
+*   **База данных**: MS SQL Server (LocalDB)
 *   **Архитектурные паттерны**:
     *   Repository Pattern
     *   Unit of Work
