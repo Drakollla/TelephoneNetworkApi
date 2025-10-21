@@ -5,6 +5,8 @@ VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelephoneNetworkApi", "TelephoneNetworkApi\TelephoneNetworkApi.csproj", "{330C38EF-394D-4C80-BF82-B1ED5AB57FCA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelephoneNetworkApi.Tests", "TelephoneNetworkApi.Tests\TelephoneNetworkApi.Tests.csproj", "{94ADC6C1-5AF4-4465-9A4B-F9E1D650B453}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{330C38EF-394D-4C80-BF82-B1ED5AB57FCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{330C38EF-394D-4C80-BF82-B1ED5AB57FCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{330C38EF-394D-4C80-BF82-B1ED5AB57FCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94ADC6C1-5AF4-4465-9A4B-F9E1D650B453}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94ADC6C1-5AF4-4465-9A4B-F9E1D650B453}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94ADC6C1-5AF4-4465-9A4B-F9E1D650B453}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94ADC6C1-5AF4-4465-9A4B-F9E1D650B453}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
