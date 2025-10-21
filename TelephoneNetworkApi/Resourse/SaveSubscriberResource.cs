@@ -22,7 +22,7 @@ namespace TelephoneNetworkApi.Resourse
 
         [Required]
         public bool IsIntercityOpen { get; set; }
-        
-        public int[] AutomaticTelephoneExchangeIds { get; set; }
+
+        public ICollection<int> AutomaticTelephoneExchangeIds { get; set; } = new List<int>();
     }
 }
