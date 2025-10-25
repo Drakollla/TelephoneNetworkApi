@@ -1,131 +1,120 @@
-# REST-сервис "Городская телефонная сеть"
+# REST-service "City Telephone Network"
 
-Курсовой проект, представляющий собой RESTful API для управления данными городской телефонной сети. Проект разработан на платформе .NET 6 с использованием ASP.NET Core Web API и Entity Framework Core.
+A RESTful API for managing the data of a city telephone network. The project was developed on the .NET 6 platform using ASP.NET Core Web API and Entity Framework Core.
 
-## Описание проекта
+---
 
-API предоставляет интерфейс для управления основными сущностями телефонной сети:
+## Project Description
 
-*   **Абоненты (Subscribers)**: информация о клиентах сети.
-*   **АТС (Автоматические Телефонные Станции)**: информация о станциях, к которым подключаются абоненты.
-*   **Реестр платежей (Subscription Payments)**: история абонентских платежей.
+The API provides an interface for managing the main entities of the telephone network:
 
-## Технологический стек
+*   **Subscribers:** information about the network's clients.
+*   **Automatic Telephone Exchanges (ATE):** information about the exchanges to which subscribers are connected.
+*   **Subscription Payments:** history of subscription payments.
 
-*   **Платформа**: .NET 6
-*   **Фреймворк**: ASP.NET Core Web API
-*   **ORM**: Entity Framework Core
-*   **База данных**: MS SQL Server (LocalDB)
-*   **Архитектурные паттерны**:
+## Technology Stack
+
+*   **Platform:** .NET 6
+*   **ORM:** Entity Framework Core
+*   **Database:** MS SQL Server (LocalDB)
+*   **Architectural Patterns:**
     *   Repository Pattern
     *   Unit of Work
-    *   Layered Architecture (слоистая архитектура)
-*   **Инструменты**:
-    *   **AutoMapper**: для маппинга моделей домена на DTO (Data Transfer Objects).
-    *   **Swagger (OpenAPI)**: для интерактивной документации и тестирования API.
+    *   Layered Architecture
+*   **Tools:**
+    *   **AutoMapper:** for mapping domain models to DTOs (Data Transfer Objects).
+    *   **Swagger (OpenAPI):** for interactive documentation and API testing.
 
-## Структура проекта
+## How to run the project
 
-Проект имеет слоистую архитектуру:
+### Prerequisites
 
-*   `Controllers`: Точки входа API. Отвечают за прием HTTP-запросов, их валидацию и отправку ответа.
-*   `Domain`: Содержит основные бизнес-модели (сущности) и интерфейсы репозиториев.
-*   `Persistence`: Слой доступа к данным. Содержит реализацию репозиториев, Unit of Work и контекст базы данных (`AppDbContext`).
-*   `Services`: Слой бизнес-логики. Содержит сервисы, которые координируют работу репозиториев и выполняют основные операции.
-*   `Resources`: DTO (Data Transfer Objects), используемые для передачи данных между клиентом и сервером.
-*   `Mapping`: Профили AutoMapper для преобразования моделей в DTO и обратно.
+*   .NET 6 SDK
+*   SQL Server LocalDB (usually installed with Visual Studio)
+*   Git
 
-## Схема базы данных
+### Instructions
 
-Схема данных была спроектирована на основе предоставленных моделей и полностью соответствует требованиям технического задания, включая наличие явной связи "многие-ко-многим".
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/Drakollla/TelephoneNetworkApi.git
+    ```
 
-1.  **Subscribers (Абоненты)**
-    *   `Id` (PK) - Уникальный идентификатор
-    *   `SecondName` - Фамилия
-    *   `Name` - Имя
-    *   `Surname` - Отчество
-    *   `PhoneNumber` - Номер телефона
-    *   `IsIntercityOpen` (bool) - Признак, открыта ли межгородская связь
+2.  **Configure the database connection string:**
+    The project is configured by default to use MS SQL Server LocalDB. The connection string can be found in `Program.cs` or `appsettings.json`.
+    ```json
+    "Server=(localdb)\\mssqllocaldb;Database=TelephoneNetworDB;Trusted_Connection=True;"
+    ```
+    **Note:** It is not necessary to run migrations (`dotnet ef database update`). On the first launch, the `TelephoneNetworDB` database will be created and seeded with test data automatically.
 
-2.  **AutomaticTelephoneExchanges (АТС)**
-    *   `Id` (PK) - Уникальный идентификатор
-    *   `Name` - Название/номер АТС
-    *   `Town` - Город расположения
-    *   `CountSubscriber` - Количество подключенных абонентов
+3.  **Open the Swagger documentation:**
+    After launching, navigate to `http://localhost:5000/swagger` in your browser (the port may vary, check the console output). You can test all available endpoints through Swagger.
 
-3.  **RegistrySubscriptionPayments (Ведомость абонентской платы)**
-    *   `Id` (PK) - Уникальный идентификатор
-    *   `Mounth` - Месяц начисления
-    *   `Year` - Год начисления
-    *   `TownshipMinuteCount` (byte) - Количество минут разговора по городу
-    *   `IntecityMinuteCount` (byte) - Количество минут разговора по межгороду
-    *   `Price` (decimal) - Сумма к оплате
-    *   `SubscriberId` (FK к Subscribers) - Внешний ключ, указывающий на абонента, которому выставлен счет. Реализует связь **"один-ко-многим"** (у одного абонента много платежей).
+## Database Schema
 
-4.  **AtsSubscribers (Связь АТС и Абонентов)**
-    *   Это **промежуточная (join) таблица**, которая явно реализует связь **"многие-ко-многим"** между АТС и Абонентами.
-    *   `Id` (PK) - Суррогатный первичный ключ
-    *   `AutomaticTelephoneExchangeId` (FK к AutomaticTelephoneExchanges) - Внешний ключ на АТС.
-    *   `SubscriberId` (FK к Subscribers) - Внешний ключ на Абонента.
+### Subscribers
+
+| Column          | Type       | Constraints | Description                                   |
+| --------------- | ---------- | ----------- | --------------------------------------------- |
+| `Id`            | `int`      | Primary Key | Unique identifier                             |
+| `SecondName`    | `nvarchar` |             | Last Name                                     |
+| `Name`          | `nvarchar` |             | First Name                                    |
+| `Surname`       | `nvarchar` |             | Patronymic/Middle Name                        |
+| `PhoneNumber`   | `nvarchar` |             | Phone Number                                  |
+| `IsIntercityOpen` | `bit`    |             | Flag indicating if long-distance calls are enabled |
+
+### AutomaticTelephoneExchanges (ATEs)
+
+| Column            | Type       | Constraints | Description                         |
+| ----------------- | ---------- | ----------- | ----------------------------------- |
+| `Id`              | `int`      | Primary Key | Unique identifier                   |
+| `Name`            | `nvarchar` |             | Name/number of the ATE              |
+| `Town`            | `nvarchar` |             | City of location                    |
+| `CountSubscriber` | `int`      |             | Number of connected subscribers     |
+
+### RegistrySubscriptionPayments
+
+| Column                | Type      | Constraints | Description                             |
+| --------------------- | --------- | ----------- | --------------------------------------- |
+| `Id`                  | `int`     | Primary Key | Unique identifier                       |
+| `Mounth`              | `int`     |             | Billing month                           |
+| `Year`                | `int`     |             | Billing year                            |
+| `TownshipMinuteCount` | `tinyint` |             | Number of local call minutes            |
+| `IntecityMinuteCount` | `tinyint` |             | Number of long-distance call minutes    |
+| `Price`               | `decimal` |             | Amount to be paid                       |
+| `SubscriberId`        | `int`     | Foreign Key | Foreign key referencing the subscriber |
+
+### AtsSubscribers (ATE-Subscriber Junction Table)
+
+This is a join table that implements a many-to-many relationship between `AutomaticTelephoneExchanges` and `Subscribers`.
+
+| Column                       | Type  | Constraints | Description                                  |
+| ---------------------------- | ----- | ----------- | -------------------------------------------- |
+| `Id`                         | `int` | Primary Key | Surrogate primary key                        |
+| `AutomaticTelephoneExchangeId` | `int` | Foreign Key | Foreign key to `AutomaticTelephoneExchanges` |
+| `SubscriberId`               | `int` | Foreign Key | Foreign key to `Subscribers`                 |
 
 ## API Endpoints
 
-Полный список эндпоинтов с возможностью отправки тестовых запросов доступен через интерфейс Swagger по адресу `/swagger` после запуска приложения.
+A full list of endpoints with the ability to send test requests is available through the Swagger interface at `/swagger` after launching the application.
 
-### АТС (`/api/AutomaticTelephoneExchange`)
+### ATE (`/api/AutomaticTelephoneExchange`)
 
-*   `GET /api/AutomaticTelephoneExchange` - Получить список всех АТС.
-*   `POST /api/AutomaticTelephoneExchange` - Создать новую АТС.
-*   `PUT /api/AutomaticTelephoneExchange/{id}` - Обновить информацию об АТС по её ID.
-*   `DELETE /api/AutomaticTelephoneExchange/{id}` - Удалить АТС по её ID.
+*   **GET** `/api/AutomaticTelephoneExchange` - Get a list of all ATEs.
+*   **POST** `/api/AutomaticTelephoneExchange` - Create a new ATE.
+*   **PUT** `/api/AutomaticTelephoneExchange/{id}` - Update an ATE by its ID.
+*   **DELETE** `/api/AutomaticTelephoneExchange/{id}` - Delete an ATE by its ID.
 
-### Абоненты (`/api/Subscriber`)
+### Subscribers (`/api/Subscriber`)
 
-*   `GET /api/Subscriber` - Получить список всех абонентов.
-*   `POST /api/Subscriber` - Создать нового абонента и привязать его к указанным АТС.
-*   `PUT /api/Subscriber/{id}` - Обновить информацию об абоненте по его ID.
-*   `DELETE /api/Subscriber/{id}` - Удалить абонента по его ID.
+*   **GET** `/api/Subscriber` - Get a list of all subscribers.
+*   **POST** `/api/Subscriber` - Create a new subscriber and link them to specified ATEs.
+*   **PUT** `/api/Subscriber/{id}` - Update a subscriber by their ID.
+*   **DELETE** `/api/Subscriber/{id}` - Delete a subscriber by their ID.
 
-### Платежи (`/api/RegistrySubscriptionPayment`)
+### Payments (`/api/RegistrySubscriptionPayment`)
 
-*   `GET /api/RegistrySubscriptionPayment` - Получить список всех платежей.
-*   `POST /api/RegistrySubscriptionPayment` - Добавить новый платеж для абонента.
-*   `PUT /api/RegistrySubscriptionPayment/{id}` - Обновить информацию о платеже по его ID.
-*   `DELETE /api/RegistrySubscriptionPayment/{id}` - Удалить платеж по его ID.
-
-### Реализация комплексных запросов (требование ТЗ)
-
-Требование технического задания о "двух точках доступа, которые затрагивают несколько таблиц" выполнено следующим образом:
-
-1.  **Создание абонента с привязкой к АТС:**
-    *   Эндпоинт: `POST /api/Subscriber`
-    *   **Описание:** При создании нового абонента в теле запроса можно передать массив ID тех АТС (`AutomaticTelephoneExchangeIds`), к которым он должен быть подключен. Этот запрос одновременно создает запись в таблице `Subscribers` и одну или несколько записей в связующей таблице `AtsSubscribers`. Это сложная операция записи, затрагивающая несколько таблиц.
-
-2.  **Получение данных с вложенными сущностями:**
-    *   Эндпоинт: `GET /api/Subscriber`
-    *   **Описание:** При получении списка абонентов, сервис может быть настроен (с помощью `Include` в Entity Framework) на возврат не только данных самого абонента, но и связанных с ним сущностей, например, списка его платежей или АТС, к которым он подключен. Это сложная операция чтения, которая агрегирует данные из таблиц `Subscribers`, `RegistrySubscriptionPayments` и `AtsSubscribers`.
-
-## Как запустить проект
-
-### Требования
-
-*   [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
-*   SQL Server LocalDB (обычно устанавливается вместе с Visual Studio)
-*   Git
-
-### Инструкция по запуску
-
-1.  **Клонируйте репозиторий**
-
-2.  **Настройте строку подключения к базе данных:**
-
-   Проверьте строку подключения к базе данных:
-   Проект по умолчанию настроен на использование MS SQL Server LocalDB. Строка подключения находится в коде Program.cs или appsettings.json.
-
-    "Server=(localdb)\\mssqllocaldb;Database=TelephoneNetworDB;Trusted_Connection=True;"
-   
-   Эта конфигурация должна работать "из коробки" на Windows с установленной Visual Studio.
-   Важно: Миграции (dotnet ef database update) выполнять не нужно. При первом запуске база данных TelephoneNetworDB будет создана и заполнена тестовыми данными автоматически благодаря вызову Database.EnsureCreated() и методу HasData в коде.
-
-3.  **Откройте документацию Swagger:**
-    После запуска перейдите в браузере по адресу `http://localhost:5000/swagger` (порт может отличаться, смотрите в выводе консоли). Через Swagger можно протестировать все доступные эндпоинты.
+*   **GET** `/api/RegistrySubscriptionPayment` - Get a list of all payments.
+*   **POST** `/api/RegistrySubscriptionPayment` - Add a new payment for a subscriber.
+*   **PUT** `/api/RegistrySubscriptionPayment/{id}` - Update a payment by its ID.
+*   **DELETE** `/api/RegistrySubscriptionPayment/{id}` - Delete a payment by its ID.
