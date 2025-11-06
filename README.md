@@ -93,28 +93,3 @@ This is a join table that implements a many-to-many relationship between `Automa
 | `Id`                         | `int` | Primary Key | Surrogate primary key                        |
 | `AutomaticTelephoneExchangeId` | `int` | Foreign Key | Foreign key to `AutomaticTelephoneExchanges` |
 | `SubscriberId`               | `int` | Foreign Key | Foreign key to `Subscribers`                 |
-
-## API Endpoints
-
-A full list of endpoints with the ability to send test requests is available through the Swagger interface at `/swagger` after launching the application.
-
-### ATE (`/api/AutomaticTelephoneExchange`)
-
-*   **GET** `/api/AutomaticTelephoneExchange` - Get a list of all ATEs.
-*   **POST** `/api/AutomaticTelephoneExchange` - Create a new ATE.
-*   **PUT** `/api/AutomaticTelephoneExchange/{id}` - Update an ATE by its ID.
-*   **DELETE** `/api/AutomaticTelephoneExchange/{id}` - Delete an ATE by its ID.
-
-### Subscribers (`/api/Subscriber`)
-
-*   **GET** `/api/Subscriber` - Get a list of all subscribers.
-*   **POST** `/api/Subscriber` - Create a new subscriber and link them to specified ATEs.
-*   **PUT** `/api/Subscriber/{id}` - Update a subscriber by their ID.
-*   **DELETE** `/api/Subscriber/{id}` - Delete a subscriber by their ID.
-
-### Payments (`/api/RegistrySubscriptionPayment`)
-
-*   **GET** `/api/RegistrySubscriptionPayment` - Get a list of all payments.
-*   **POST** `/api/RegistrySubscriptionPayment` - Add a new payment for a subscriber.
-*   **PUT** `/api/RegistrySubscriptionPayment/{id}` - Update a payment by its ID.
-*   **DELETE** `/api/RegistrySubscriptionPayment/{id}` - Delete a payment by its ID.
