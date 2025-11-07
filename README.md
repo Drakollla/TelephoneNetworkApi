@@ -98,4 +98,5 @@ This is a join table that implements a many-to-many relationship between `Automa
 ## Resources
 
 A collection of articles and links that were helpful during the development of this project:
-- [An awesome guide on how to build RESTful APIs with ASP.NET Core]([https://example.com/wpf-perf](https://www.freecodecamp.org/news/an-awesome-guide-on-how-to-build-restful-apis-with-asp-net-core-87b818123e28))
+- [An awesome guide on how to build RESTful APIs with ASP.NET Core]
+  ([https://www.freecodecamp.org/news/an-awesome-guide-on-how-to-build-restful-apis-with-asp-net-core-87b818123e28])
